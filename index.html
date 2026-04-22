@@ -34,90 +34,150 @@ body {
   background: #3BBFB2;
   border-radius: 50%; opacity: 0.3;
 }
-.hero-tag   { font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: .08em; margin-bottom: 4px; }
-.hero-title { font-size: 20px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 2px; position: relative; z-index: 1; }
-.hero-sub   { font-size: 12px; color: rgba(255,255,255,0.8); }
-.hero-note  { margin-top: 8px; background: rgba(0,0,0,0.18); border-radius: 8px; padding: 7px 12px; font-size: 11px; color: rgba(255,255,255,0.9); line-height: 1.6; }
+.hero-tag   { font-size: clamp(9px, 2vw, 10px); color: rgba(255,255,255,0.7); letter-spacing: .08em; margin-bottom: 4px; }
+.hero-title { font-size: clamp(15px, 4vw, 20px); font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 2px; position: relative; z-index: 1; }
+.hero-sub   { font-size: clamp(10px, 2.5vw, 12px); color: rgba(255,255,255,0.8); }
+.hero-note  { margin-top: 8px; background: rgba(0,0,0,0.18); border-radius: 8px; padding: 7px 12px; font-size: clamp(10px, 2vw, 11px); color: rgba(255,255,255,0.9); line-height: 1.6; }
 
 /* ── Section label ── */
-.sec { font-size: 11px; color: #6b7280; letter-spacing: .07em; text-transform: uppercase; font-weight: 600; margin: 16px 0 9px; }
+.sec { font-size: clamp(9px, 2vw, 11px); color: #6b7280; letter-spacing: .07em; text-transform: uppercase; font-weight: 600; margin: 16px 0 9px; }
 
 /* ── Descriptive Stats ── */
 .desc4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
 .desc-card { background: #fff; border: .5px solid rgba(0,0,0,0.1); border-radius: 14px; padding: 13px 13px 12px; border-top: 3px solid; }
 .dc1 { border-top-color: #85B7EB; } .dc2 { border-top-color: #2176C7; }
 .dc3 { border-top-color: #185FA5; } .dc4 { border-top-color: #1A7A5E; }
-.dc-yr  { font-size: 11px; font-weight: 700; color: #6b7280; margin-bottom: 6px; }
-.dc-n   { font-size: 10px; color: #9ca3af; margin-bottom: 8px; }
+.dc-yr  { font-size: clamp(10px, 2.5vw, 11px); font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+.dc-n   { font-size: clamp(9px, 2vw, 10px); color: #9ca3af; margin-bottom: 8px; }
 .divline { border: none; border-top: .5px solid rgba(0,0,0,0.08); margin: 6px 0; }
 .dc-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
-.dc-lbl { font-size: 11px; color: #6b7280; }
-.dc-val { font-size: 12px; font-weight: 700; color: #1a1a2e; }
-.dc-badge { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
+.dc-lbl { font-size: clamp(10px, 2vw, 11px); color: #6b7280; }
+.dc-val { font-size: clamp(10px, 2.5vw, 12px); font-weight: 700; color: #1a1a2e; }
+.dc-badge { display: inline-block; margin-top: 6px; font-size: clamp(9px, 2vw, 11px); font-weight: 700; padding: 2px 9px; border-radius: 20px; }
 .badge-load { background: #E1F5EE; color: #085041; }
 
 /* ── Cards ── */
 .card { background: #fff; border: .5px solid rgba(0,0,0,0.1); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
-.card-title { font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 3px; }
-.card-desc  { font-size: 11px; color: #6b7280; margin-bottom: 10px; }
+.card-title { font-size: clamp(11px, 2.5vw, 13px); font-weight: 600; color: #1a1a2e; margin-bottom: 3px; }
+.card-desc  { font-size: clamp(10px, 2vw, 11px); color: #6b7280; margin-bottom: 10px; }
 .leg-row    { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; }
-.leg        { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6b7280; }
+.leg        { display: flex; align-items: center; gap: 5px; font-size: clamp(10px, 2vw, 12px); color: #6b7280; }
 .leg-sq     { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 .leg-ln     { width: 20px; height: 3px; border-radius: 2px; flex-shrink: 0; }
 
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
 .row2 .card { margin-bottom: 0; }
 
+/* ── Chart Container ── */
+.chart-container { position: relative; width: 100%; height: 220px; }
+.chart-container--sm { position: relative; width: 100%; height: 130px; margin-bottom: 12px; }
+
 /* ── Seasonal ── */
-.s4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
+.seasonal-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
 .sc { background: #fff; border: .5px solid rgba(0,0,0,0.1); border-radius: 14px; padding: 13px 13px 12px; border-top: 3px solid; }
 .sc.s1 { border-top-color: #2176C7; } .sc.s2 { border-top-color: #F4922A; }
 .sc.s3 { border-top-color: #1A7A5E; } .sc.s4 { border-top-color: #E85C3A; }
-.sc-badge  { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-bottom: 5px; }
+.sc-badge  { display: inline-block; font-size: clamp(9px, 2vw, 10px); font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-bottom: 5px; }
 .b1 { background: #E6F1FB; color: #0C447C; } .b2 { background: #FAEEDA; color: #633806; }
 .b3 { background: #E1F5EE; color: #085041; } .b4 { background: #FAECE7; color: #712B13; }
-.sc-name  { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 1px; }
-.sc-range { font-size: 10px; color: #9ca3af; margin-bottom: 8px; }
-.sc-stat  { font-size: 11px; color: #6b7280; margin-bottom: 2px; }
+.sc-name  { font-size: clamp(11px, 2.5vw, 13px); font-weight: 700; color: #1a1a2e; margin-bottom: 1px; }
+.sc-range { font-size: clamp(9px, 2vw, 10px); color: #9ca3af; margin-bottom: 8px; }
+.sc-stat  { font-size: clamp(10px, 2vw, 11px); color: #6b7280; margin-bottom: 2px; }
 .sc-stat b { color: #1a1a2e; font-weight: 700; }
-.sc-sd    { font-size: 10px; color: #9ca3af; margin-top: 4px; }
+.sc-sd    { font-size: clamp(9px, 2vw, 10px); color: #9ca3af; margin-top: 4px; }
 
 /* ── Correlation & Regression ── */
 .corr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .corr-card { background: #fff; border: .5px solid rgba(0,0,0,0.1); border-radius: 14px; padding: 13px 14px; }
-.corr-title { font-size: 12px; font-weight: 600; color: #1a1a2e; margin-bottom: 10px; }
+.corr-title { font-size: clamp(11px, 2vw, 12px); font-weight: 600; color: #1a1a2e; margin-bottom: 10px; }
 .corr-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-bottom: 8px; border-bottom: .5px solid rgba(0,0,0,0.06); }
 .corr-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.corr-var { font-size: 12px; color: #6b7280; }
-.corr-val { font-size: 13px; font-weight: 700; }
-.corr-sig { font-size: 10px; padding: 1px 7px; border-radius: 10px; margin-left: 6px; }
+.corr-var { font-size: clamp(10px, 2vw, 12px); color: #6b7280; }
+.corr-val { font-size: clamp(11px, 2.5vw, 13px); font-weight: 700; }
+.corr-sig { font-size: clamp(9px, 1.5vw, 10px); padding: 1px 7px; border-radius: 10px; margin-left: 6px; }
 .sig-y { background: #E1F5EE; color: #085041; } .sig-n { background: #F5F5F5; color: #6b7280; }
 .corr-bar-wrap { height: 6px; background: #f3f4f6; border-radius: 3px; width: 80px; flex-shrink: 0; }
 .corr-bar { height: 100%; border-radius: 3px; }
 .reg-card { background: #fff; border: .5px solid rgba(0,0,0,0.1); border-radius: 14px; padding: 13px 14px; }
 .reg-row  { display: flex; gap: 16px; flex-wrap: wrap; }
 .reg-item { flex: 1; min-width: 100px; }
-.reg-lbl  { font-size: 11px; color: #6b7280; margin-bottom: 3px; }
-.reg-v    { font-size: 16px; font-weight: 700; color: #1a1a2e; }
-.reg-sub  { font-size: 10px; color: #9ca3af; margin-top: 2px; }
+.reg-lbl  { font-size: clamp(10px, 2vw, 11px); color: #6b7280; margin-bottom: 3px; }
+.reg-v    { font-size: clamp(13px, 3vw, 16px); font-weight: 700; color: #1a1a2e; }
+.reg-sub  { font-size: clamp(9px, 2vw, 10px); color: #9ca3af; margin-top: 2px; }
 
 /* ── Insights ── */
 .ins3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
 .ins  { border-radius: 14px; padding: 14px 15px; }
 .ins.i1 { background: #2176C7; } .ins.i2 { background: #1A7A5E; } .ins.i3 { background: #E85C3A; }
-.ins-n  { font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.35); margin-bottom: 3px; }
-.ins-h  { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 5px; }
-.ins-b  { font-size: 11px; color: rgba(255,255,255,0.88); line-height: 1.7; }
+.ins-n  { font-size: clamp(16px, 4vw, 20px); font-weight: 700; color: rgba(255,255,255,0.35); margin-bottom: 3px; }
+.ins-h  { font-size: clamp(11px, 2.5vw, 13px); font-weight: 700; color: #fff; margin-bottom: 5px; }
+.ins-b  { font-size: clamp(10px, 2vw, 11px); color: rgba(255,255,255,0.88); line-height: 1.7; }
 
 /* ── Misc ── */
 .divider { border: none; border-top: .5px solid rgba(0,0,0,0.08); margin: 14px 0; }
-.footer  { font-size: 11px; color: #6b7280; text-align: right; margin-top: 10px; }
+.footer  { font-size: clamp(10px, 2vw, 11px); color: #6b7280; text-align: right; margin-top: 10px; }
 
 /* ── Responsive ── */
-@media (max-width: 640px) {
-  .desc4, .s4 { grid-template-columns: repeat(2, 1fr); }
-  .corr-grid, .row2 { grid-template-columns: 1fr; }
+
+/* Mobile XS: < 360px (e.g. Galaxy Fold) */
+@media (max-width: 360px) {
+  body { padding: 12px 8px 32px; }
+  .hero { padding: 14px 12px 12px; border-radius: 10px; }
+  .desc4 { grid-template-columns: 1fr; gap: 6px; }
+  .seasonal-grid { grid-template-columns: 1fr; gap: 6px; }
+  .row2 { grid-template-columns: 1fr; gap: 8px; }
+  .corr-grid { grid-template-columns: 1fr; }
   .ins3 { grid-template-columns: 1fr; }
+  .card { padding: 10px 10px; }
+  .desc-card { padding: 10px 10px; }
+  .chart-container { height: 300px; }
+  .chart-container--sm { height: 160px; }
+  .leg-row { flex-direction: column; gap: 6px; }
+  .corr-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .reg-row { gap: 10px; }
+  .reg-item { min-width: 80px; }
+  .corr-bar-wrap { width: 60px; }
+}
+
+/* Mobile S: 361px – 480px */
+@media (min-width: 361px) and (max-width: 480px) {
+  body { padding: 14px 10px 36px; }
+  .hero { padding: 14px 14px 12px; }
+  .desc4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .seasonal-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .row2 { grid-template-columns: 1fr; gap: 8px; }
+  .corr-grid { grid-template-columns: 1fr; }
+  .ins3 { grid-template-columns: 1fr; }
+  .card { padding: 12px 12px; }
+  .desc-card { padding: 12px 12px; }
+  .chart-container { height: 260px; }
+  .chart-container--sm { height: 150px; }
+  .leg-row { flex-direction: column; gap: 6px; }
+  .corr-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .corr-bar-wrap { width: 60px; }
+}
+
+/* Mobile M: 481px – 640px */
+@media (min-width: 481px) and (max-width: 640px) {
+  body { padding: 16px 12px 40px; }
+  .desc4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .seasonal-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .row2 { grid-template-columns: 1fr; gap: 8px; }
+  .corr-grid { grid-template-columns: 1fr; }
+  .ins3 { grid-template-columns: 1fr; }
+  .chart-container { height: 240px; }
+  .chart-container--sm { height: 140px; }
+  .leg-row { flex-direction: column; gap: 6px; }
+}
+
+/* Tablet: 641px – 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+  body { padding: 20px 16px 40px; }
+  .desc4 { grid-template-columns: repeat(2, 1fr); }
+  .seasonal-grid { grid-template-columns: repeat(2, 1fr); }
+  .corr-grid { grid-template-columns: 1fr; }
+  .ins3 { grid-template-columns: repeat(3, 1fr); }
+  .chart-container { height: 220px; }
 }
 </style>
 </head>
@@ -197,14 +257,14 @@ body {
         <span class="leg"><span class="leg-sq" style="background:#2176C7;"></span>ปี 2567</span>
         <span class="leg"><span class="leg-sq" style="background:#9B85C4;"></span>ปี 2568</span>
       </div>
-      <div style="position:relative;width:100%;height:220px;">
+      <div class="chart-container">
         <canvas id="yoyBar" role="img" aria-label="กราฟแท่ง YoY ผู้โดยสาร 2567 กับ 2568 รายเดือน">ข้อมูลเปรียบเทียบ YoY</canvas>
       </div>
     </div>
     <div class="card">
       <div class="card-title">% เปลี่ยนแปลง YoY รายเดือน (2568 เทียบ 2567)</div>
       <div class="card-desc">บวก = เพิ่มขึ้น / ลบ = ลดลง เทียบเดือนเดียวกันของปีก่อน</div>
-      <div style="position:relative;width:100%;height:220px;">
+      <div class="chart-container">
         <canvas id="yoyPct" role="img" aria-label="กราฟแท่ง % เปลี่ยนแปลง YoY รายเดือน">ข้อมูล % YoY</canvas>
       </div>
     </div>
@@ -218,14 +278,14 @@ body {
       <span class="leg"><span class="leg-ln" style="background:#2176C7;display:inline-block;"></span>Load Factor 2567</span>
       <span class="leg"><span class="leg-ln" style="background:#E85C3A;display:inline-block;"></span>Load Factor 2568 (เส้นประ)</span>
     </div>
-    <div style="position:relative;width:100%;height:220px;">
+    <div class="chart-container">
       <canvas id="loadYoY" role="img" aria-label="กราฟเส้น Load Factor YoY 2567 vs 2568">ข้อมูล Load Factor รายเดือน</canvas>
     </div>
   </div>
 
   <!-- 3. Seasonal -->
   <div class="sec">3. Seasonal Analysis — ปี 2567–2568 (เฉพาะปีเต็ม)</div>
-  <div class="s4">
+  <div class="seasonal-grid">
     <div class="sc s1">
       <div class="sc-badge b1">เปิดเทอม 1</div>
       <div class="sc-name">พ.ค. – ก.ย.</div>
@@ -316,7 +376,7 @@ body {
     </div>
     <div class="reg-card">
       <div class="corr-title">Linear Regression — แนวโน้มระยะยาว</div>
-      <div style="position:relative;width:100%;height:130px;margin-bottom:12px;">
+      <div class="chart-container chart-container--sm">
         <canvas id="trendChart" role="img" aria-label="กราฟ Linear Regression แนวโน้มผู้โดยสาร">ข้อมูล Linear Trend</canvas>
       </div>
       <div class="reg-row">
