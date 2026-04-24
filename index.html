@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ผลการวิเคราะห์ทางสถิติ — เรือไฟฟ้าคลองผดุงกรุงเกษม</title>
+<meta name="description" content="แดชบอร์ดสรุปผลการวิเคราะห์ทางสถิติผู้โดยสารเรือไฟฟ้าคลองผดุงกรุงเกษม พร้อมแนวโน้มรายปี ฤดูกาล และตัวชี้วัดเชิงสถิติ">
+<meta name="theme-color" content="#1a7a5e">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="ผลการวิเคราะห์ทางสถิติ — เรือไฟฟ้าคลองผดุงกรุงเกษม">
+<meta property="og:description" content="แดชบอร์ดสถิติผู้โดยสาร พร้อมกราฟเปรียบเทียบรายปี โหลดแฟกเตอร์ และการวิเคราะห์ความสัมพันธ์">
+<meta property="og:image" content="assets/images/social-preview.png">
+<meta property="og:image:alt" content="Boat Passenger Statistics Dashboard Preview">
+<meta property="og:locale" content="th_TH">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ผลการวิเคราะห์ทางสถิติ — เรือไฟฟ้าคลองผดุงกรุงเกษม">
+<meta name="twitter:description" content="แดชบอร์ดสถิติผู้โดยสาร พร้อมแนวโน้มรายปีและผลวิเคราะห์เชิงสถิติ">
+<meta name="twitter:image" content="assets/images/social-preview.png">
+
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<link rel="apple-touch-icon" href="assets/images/favicon.svg">
+<link rel="manifest" href="site.webmanifest">
+<link href="assets/css/fonts.css" rel="stylesheet">
+<script src="assets/js/chart.umd.js"></script>
+<style>
+:root {
+  --bg: #f3f4ef;
+  --surface: rgba(255,255,255,0.86);
+  --surface-strong: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: rgba(15, 23, 42, 0.08);
+  --shadow: 0 18px 42px rgba(18, 42, 35, 0.10);
+  --shadow-soft: 0 10px 24px rgba(18, 42, 35, 0.08);
+  --green: #1a7a5e;
+  --green-soft: #def2eb;
+  --blue: #2176c7;
+  --blue-soft: #e6f1fb;
+  --orange: #f4922a;
+  --orange-soft: #faeeda;
+  --red: #e85c3a;
+  --red-soft: #faece7;
+  --purple: #9b85c4;
+  --radius-lg: 18px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 28px 16px 56px;
+  background:
+    radial-gradient(circle at top left, rgba(59, 191, 178, 0.16), transparent 32%),
+    radial-gradient(circle at top right, rgba(33, 118, 199, 0.10), transparent 26%),
+    linear-gradient(180deg, #f8f9f5 0%, #eff2ec 100%);
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 28px;
+  margin-bottom: 18px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(13, 84, 65, 0.96), rgba(26, 122, 94, 0.92) 52%, rgba(59, 191, 178, 0.82) 100%);
+  box-shadow: var(--shadow);
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.hero::before {
+  width: 240px;
+  height: 240px;
+  top: -120px;
+  right: -32px;
+  background: rgba(255,255,255,0.11);
+}
+
+.hero::after {
+  width: 180px;
+  height: 180px;
+  bottom: -96px;
+  left: -48px;
+  background: rgba(255,255,255,0.09);
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hero-tag {
+  width: fit-content;
+  padding: 6px 10px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.84);
+  background: rgba(255,255,255,0.08);
+}
+
+.hero-title {
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.25;
+  font-weight: 700;
+  color: #fff;
+}
+
+.hero-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.82);
+}
+
+.hero-note {
+  max-width: 720px;
+  margin-top: 4px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(8, 27, 21, 0.18);
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.92);
+}
+
+.hero-note strong {
+  color: #ffffff;
+}
+
+.hero-kpis {
+  display: grid;
+  gap: 12px;
+}
+
+.kpi-card {
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(8px);
+}
+
+.kpi-label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
+}
+
+.kpi-value {
+  margin-top: 4px;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 700;
+  color: #fff;
+}
+
+.kpi-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.82);
+}
+
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.summary-card {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.summary-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.summary-value {
+  margin-top: 6px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.summary-note {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.sec {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 22px 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sec::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(26, 122, 94, 0.28), rgba(26, 122, 94, 0));
+}
+
+.desc4,
+.season-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.desc-card,
+.card,
+.sc,
+.corr-card,
+.reg-card,
+.summary-card {
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.desc-card:hover,
+.card:hover,
+.sc:hover,
+.corr-card:hover,
+.reg-card:hover,
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(18, 42, 35, 0.10);
+}
+
+.desc-card {
+  padding: 15px 15px 14px;
+  border: 1px solid var(--line);
+  border-top: 4px solid transparent;
+  border-radius: var(--radius-lg);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+.dc1 { border-top-color: #85b7eb; }
+.dc2 { border-top-color: var(--blue); }
+.dc3 { border-top-color: #185fa5; }
+.dc4 { border-top-color: var(--green); }
+
+.dc-yr,
+.card-title,
+.corr-title,
+.sc-name {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.dc-yr { font-size: 12px; margin-bottom: 6px; }
+.dc-n,
+.sc-range,
+.reg-sub,
+.card-desc,
+.footer { font-size: 11px; color: var(--muted); }
+
+.divline,
+.divider {
+  border: none;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.divline { margin: 8px 0; }
+.divider { margin: 18px 0 14px; }
+
+.dc-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.dc-lbl,
+.sc-stat,
+.reg-lbl,
+.corr-var,
+.leg { font-size: 12px; color: var(--muted); }
+
+.dc-val,
+.corr-val,
+.reg-v {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.dc-val { font-size: 13px; }
+
+.dc-badge,
+.sc-badge,
+.corr-sig {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.dc-badge {
+  margin-top: 8px;
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+.badge-load,
+.sig-y {
+  background: var(--green-soft);
+  color: #085041;
+}
+
+.card,
+.corr-card,
+.reg-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.card-title,
+.corr-title { font-size: 14px; margin-bottom: 4px; }
+
+.leg-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.leg {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.leg-sq,
+.leg-ln {
+  flex-shrink: 0;
+  border-radius: 999px;
+}
+
+.leg-sq { width: 10px; height: 10px; }
+.leg-ln { width: 22px; height: 3px; }
+
+.chart-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.54);
+}
+
+.chart-frame.tall { height: 240px; }
+.chart-frame.medium { height: 160px; }
+
+.row2,
+.corr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.row2 .card { margin-bottom: 0; }
+
+.sc {
+  display: flex;
+  flex-direction: column;
+  min-height: 194px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-top: 4px solid transparent;
+  border-radius: var(--radius-lg);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+.sc.sc1 { border-top-color: var(--blue); }
+.sc.sc2 { border-top-color: var(--orange); }
+.sc.sc3 { border-top-color: var(--green); }
+.sc.sc4 { border-top-color: var(--red); }
+
+.sc-badge {
+  margin-bottom: 7px;
+  padding: 4px 10px;
+  font-size: 10px;
+}
+
+.b1 { background: var(--blue-soft); color: #0c447c; }
+.b2 { background: var(--orange-soft); color: #633806; }
+.b3 { background: var(--green-soft); color: #085041; }
+.b4 { background: var(--red-soft); color: #712b13; }
+
+.sc-name { font-size: 14px; margin-bottom: 2px; }
+.sc-range { margin-bottom: 10px; }
+.sc-stat { margin-bottom: 4px; line-height: 1.55; }
+.sc-stat b { color: var(--text); }
+
+.corr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.corr-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.corr-bar-wrap {
+  width: 88px;
+  height: 7px;
+  border-radius: 999px;
+  background: #edf0f2;
+  overflow: hidden;
+}
+
+.corr-bar { height: 100%; border-radius: inherit; }
+
+.corr-sig {
+  margin-left: 6px;
+  padding: 3px 8px;
+  font-size: 10px;
+}
+
+.sig-n {
+  background: #f3f4f6;
+  color: var(--muted);
+}
+
+.reg-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.reg-item {
+  flex: 1;
+  min-width: 100px;
+}
+
+.reg-lbl { margin-bottom: 4px; }
+.reg-v { font-size: 17px; }
+
+.ins3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ins {
+  min-height: 164px;
+  padding: 18px;
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+}
+
+.ins.i1 { background: linear-gradient(135deg, #1c5ea1, #2176c7); }
+.ins.i2 { background: linear-gradient(135deg, #11614a, #1a7a5e); }
+.ins.i3 { background: linear-gradient(135deg, #c94a2c, #e85c3a); }
+
+.ins-n {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.34);
+  margin-bottom: 4px;
+}
+
+.ins-h {
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.45;
+}
+
+.ins-b {
+  font-size: 12px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.90);
+}
+
+.footer {
+  margin-top: 14px;
+  text-align: right;
+  line-height: 1.6;
+}
+
+.fade-up {
+  animation: fadeUp 0.55s ease both;
+}
+
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1180px;
+  }
+
+  .chart-frame.tall {
+    height: 260px;
+  }
+
+  .chart-frame.medium {
+    height: 180px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .container {
+    max-width: 960px;
+  }
+
+  .hero {
+    padding: 24px;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  }
+
+  .hero-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .summary-strip,
+  .ins3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .desc4,
+  .season-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .row2,
+  .corr-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .summary-strip,
+  .ins3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-note {
+    max-width: none;
+  }
+
+  .hero-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    padding: 18px 12px 42px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .hero {
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .hero::before {
+    width: 180px;
+    height: 180px;
+    top: -88px;
+    right: -44px;
+  }
+
+  .hero::after {
+    width: 130px;
+    height: 130px;
+    bottom: -70px;
+    left: -36px;
+  }
+
+  .hero-grid,
+  .summary-strip,
+  .row2,
+  .corr-grid,
+  .desc4,
+  .season-grid,
+  .ins3,
+  .hero-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: 26px;
+  }
+
+  .hero-sub,
+  .hero-note,
+  .summary-note,
+  .ins-b {
+    font-size: 12px;
+  }
+
+  .summary-value,
+  .kpi-value {
+    font-size: 22px;
+  }
+
+  .card,
+  .corr-card,
+  .reg-card,
+  .desc-card,
+  .sc,
+  .summary-card,
+  .ins {
+    padding: 16px;
+  }
+
+  .chart-frame.tall {
+    height: 220px;
+  }
+
+  .chart-frame.medium {
+    height: 180px;
+  }
+
+  .corr-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer {
+    text-align: left;
+  }
+}
+
+@media (max-width: 479px) {
+  .hero-title {
+    font-size: 23px;
+  }
+
+  .sec {
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  .dc-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .chart-frame.tall {
+    height: 200px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero fade-up">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-tag">กลุ่มงานสถิติและวิจัย · กองนโยบายและแผนงาน · สำนักการจราจรและขนส่ง</div>
+        <h1 class="hero-title">ผลการวิเคราะห์ทางสถิติผู้โดยสารเรือไฟฟ้าคลองผดุงกรุงเกษม</h1>
+        <div class="hero-sub">ช่วงข้อมูล 15 มีนาคม 2566 – กุมภาพันธ์ 2569 · ใช้สำหรับอ่านแนวโน้มการใช้งาน การเปลี่ยนแปลงรายปี และพฤติกรรมตามฤดูกาล</div>
+        <div class="hero-note"><strong>สาระสำคัญ:</strong> ภาพรวมระยะยาวยังเติบโตต่อเนื่อง แม้ปี 2568 จะชะลอตัวจากปี 2567 ในหลายเดือน โดยช่วงปิดเทอม 2 มีความหนาแน่นการใช้งานสูงสุด และปัจจัยด้านจำนวนวันหรือรอบเรือยังไม่ใช่ตัวอธิบายหลักของผู้โดยสารอย่างมีนัยสำคัญทางสถิติ</div>
+      </div>
+      <div class="hero-kpis">
+        <div class="kpi-card">
+          <div class="kpi-label">ค่าเฉลี่ยล่าสุด</div>
+          <div class="kpi-value">20,673</div>
+          <div class="kpi-meta">คนต่อเดือน · ปี 2569 (ม.ค.–ก.พ.)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">แนวโน้มระยะยาว</div>
+          <div class="kpi-value">+256</div>
+          <div class="kpi-meta">คนต่อเดือน · จาก Linear Regression</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">ช่วงใช้งานเด่น</div>
+          <div class="kpi-value">33.51</div>
+          <div class="kpi-meta">คนต่อรอบ · ปิดเทอม 2 มี Load Factor สูงสุด</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="summary-strip fade-up delay-1">
+    <div class="summary-card">
+      <div class="summary-label">ยอดสะสมสูงสุดรายปี</div>
+      <div class="summary-value">228,235</div>
+      <div class="summary-note">ปี 2567 เป็นปีที่มียอดผู้โดยสารรวมสูงสุดในข้อมูลปีเต็ม</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">YoY ลดลงหนักสุด</div>
+      <div class="summary-value">-27%</div>
+      <div class="summary-note">กระจุกในช่วง พ.ค.–ก.ค. 2568 เมื่อเทียบกับเดือนเดียวกันของปีก่อน</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">ผลทดสอบนัยสำคัญ</div>
+      <div class="summary-value">p &gt; 0.05</div>
+      <div class="summary-note">ตัวแปรวันและรอบเรือยังไม่อธิบายผู้โดยสารได้อย่างมีนัยสำคัญ</div>
+    </div>
+  </section>
+
+  <div class="sec fade-up delay-1">1. Descriptive Statistics</div>
+  <section class="desc4 fade-up delay-1">
+    <article class="desc-card dc1">
+      <div class="dc-yr">ปี 2566</div>
+      <div class="dc-n">n = 10 เดือน (มี.ค.–ธ.ค.)</div>
+      <div class="divline"></div>
+      <div class="dc-row"><span class="dc-lbl">รวม</span><span class="dc-val">85,743</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/เดือน</span><span class="dc-val">8,574</span></div>
+      <div class="dc-row"><span class="dc-lbl">มัธยฐาน</span><span class="dc-val">7,761</span></div>
+      <div class="dc-row"><span class="dc-lbl">SD</span><span class="dc-val">2,413</span></div>
+      <div class="dc-row"><span class="dc-lbl">Min → Max</span><span class="dc-val">5,984–11,979</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/วัน</span><span class="dc-val">303 คน</span></div>
+      <div class="dc-badge badge-load">Load 14.85 คน/รอบ</div>
+    </article>
+    <article class="desc-card dc2">
+      <div class="dc-yr">ปี 2567</div>
+      <div class="dc-n">n = 12 เดือน (ม.ค.–ธ.ค.)</div>
+      <div class="divline"></div>
+      <div class="dc-row"><span class="dc-lbl">รวม</span><span class="dc-val">228,235</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/เดือน</span><span class="dc-val">19,020</span></div>
+      <div class="dc-row"><span class="dc-lbl">มัธยฐาน</span><span class="dc-val">18,147</span></div>
+      <div class="dc-row"><span class="dc-lbl">SD</span><span class="dc-val">3,326</span></div>
+      <div class="dc-row"><span class="dc-lbl">Min → Max</span><span class="dc-val">13,634–24,657</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/วัน</span><span class="dc-val">624 คน</span></div>
+      <div class="dc-badge badge-load">Load 30.64 คน/รอบ</div>
+    </article>
+    <article class="desc-card dc3">
+      <div class="dc-yr">ปี 2568</div>
+      <div class="dc-n">n = 12 เดือน (ม.ค.–ธ.ค.)</div>
+      <div class="divline"></div>
+      <div class="dc-row"><span class="dc-lbl">รวม</span><span class="dc-val">201,231</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/เดือน</span><span class="dc-val">16,769</span></div>
+      <div class="dc-row"><span class="dc-lbl">มัธยฐาน</span><span class="dc-val">15,626</span></div>
+      <div class="dc-row"><span class="dc-lbl">SD</span><span class="dc-val">2,946</span></div>
+      <div class="dc-row"><span class="dc-lbl">Min → Max</span><span class="dc-val">13,618–20,737</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/วัน</span><span class="dc-val">553 คน</span></div>
+      <div class="dc-badge badge-load">Load 27.35 คน/รอบ</div>
+    </article>
+    <article class="desc-card dc4">
+      <div class="dc-yr">ปี 2569</div>
+      <div class="dc-n">n = 2 เดือน (ม.ค.–ก.พ.)</div>
+      <div class="divline"></div>
+      <div class="dc-row"><span class="dc-lbl">รวม</span><span class="dc-val">41,346</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/เดือน</span><span class="dc-val">20,673</span></div>
+      <div class="dc-row"><span class="dc-lbl">มัธยฐาน</span><span class="dc-val">20,673</span></div>
+      <div class="dc-row"><span class="dc-lbl">SD</span><span class="dc-val">1,481</span></div>
+      <div class="dc-row"><span class="dc-lbl">Min → Max</span><span class="dc-val">19,626–21,720</span></div>
+      <div class="dc-row"><span class="dc-lbl">ค่าเฉลี่ย/วัน</span><span class="dc-val">704 คน</span></div>
+      <div class="dc-badge badge-load">Load 34.34 คน/รอบ</div>
+    </article>
+  </section>
+
+  <div class="sec fade-up delay-2">2. Year-over-Year Analysis — เปรียบเทียบปี 2567 กับ ปี 2568 ในเดือนเดียวกัน</div>
+  <section class="row2 fade-up delay-2">
+    <article class="card">
+      <div class="card-title">ผู้โดยสารรายเดือน ปี 2567 กับ ปี 2568</div>
+      <div class="card-desc">เปรียบเทียบเดือนเดียวกัน หน่วยเป็นคนต่อเดือน</div>
+      <div class="leg-row">
+        <span class="leg"><span class="leg-sq" style="background:#2176C7;"></span>ปี 2567</span>
+        <span class="leg"><span class="leg-sq" style="background:#9B85C4;"></span>ปี 2568</span>
+      </div>
+      <div class="chart-frame tall">
+        <canvas id="yoyBar" role="img" aria-label="กราฟแท่ง YoY ผู้โดยสาร 2567 กับ 2568 รายเดือน">ข้อมูลเปรียบเทียบ YoY</canvas>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-title">เปอร์เซ็นต์เปลี่ยนแปลง YoY รายเดือน</div>
+      <div class="card-desc">ค่าบวกคือเพิ่มขึ้น ค่าลบคือลดลงเมื่อเทียบกับเดือนเดียวกันของปีก่อน</div>
+      <div class="chart-frame tall">
+        <canvas id="yoyPct" role="img" aria-label="กราฟแท่งเปอร์เซ็นต์เปลี่ยนแปลง YoY รายเดือน">ข้อมูลเปอร์เซ็นต์ YoY</canvas>
+      </div>
+    </article>
+  </section>
+
+  <section class="card fade-up delay-2">
+    <div class="card-title">Load Factor (ผู้โดยสารต่อรอบ) — 2567 เทียบ 2568 รายเดือน</div>
+    <div class="card-desc">คำนวณจากผู้โดยสารรวมต่อเดือนหารด้วยจำนวนรอบเรือต่อเดือน เพื่อเปรียบเทียบความหนาแน่นการใช้งาน</div>
+    <div class="leg-row">
+      <span class="leg"><span class="leg-ln" style="background:#2176C7;"></span>Load Factor 2567</span>
+      <span class="leg"><span class="leg-ln" style="background:#E85C3A;"></span>Load Factor 2568 (เส้นประ)</span>
+    </div>
+    <div class="chart-frame tall">
+      <canvas id="loadYoY" role="img" aria-label="กราฟเส้น Load Factor YoY 2567 กับ 2568">ข้อมูล Load Factor รายเดือน</canvas>
+    </div>
+  </section>
+
+  <div class="sec fade-up delay-2">3. Seasonal Analysis — ปี 2567–2568 (เฉพาะปีเต็ม)</div>
+  <section class="season-grid fade-up delay-2">
+    <article class="sc sc1">
+      <div class="sc-badge b1">เปิดเทอม 1</div>
+      <div class="sc-name">พ.ค. – ก.ย.</div>
+      <div class="sc-range">n = 5 เดือน</div>
+      <div class="divline"></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อเดือน: <b>16,473 คน</b></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อวัน: <b>539 คน</b></div>
+      <div class="sc-stat">Load Factor: <b>26.47 คน/รอบ</b></div>
+      <div class="sc-stat">รอบต่อวัน: <b>20.34</b></div>
+    </article>
+    <article class="sc sc2">
+      <div class="sc-badge b2">ปิดเทอม 1</div>
+      <div class="sc-name">ต.ค.</div>
+      <div class="sc-range">n = 1 เดือน</div>
+      <div class="divline"></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อเดือน: <b>13,732 คน</b></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อวัน: <b>443 คน</b></div>
+      <div class="sc-stat">Load Factor: <b>22.04 คน/รอบ</b></div>
+      <div class="sc-stat">รอบต่อวัน: <b>20.10</b></div>
+    </article>
+    <article class="sc sc3">
+      <div class="sc-badge b3">เปิดเทอม 2</div>
+      <div class="sc-name">พ.ย. – ก.พ.</div>
+      <div class="sc-range">n = 4 เดือน</div>
+      <div class="divline"></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อเดือน: <b>19,516 คน</b></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อวัน: <b>649 คน</b></div>
+      <div class="sc-stat">Load Factor: <b>31.64 คน/รอบ</b></div>
+      <div class="sc-stat">รอบต่อวัน: <b>20.49</b></div>
+    </article>
+    <article class="sc sc4">
+      <div class="sc-badge b4">ปิดเทอม 2</div>
+      <div class="sc-name">มี.ค. – เม.ย.</div>
+      <div class="sc-range">n = 2 เดือน</div>
+      <div class="divline"></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อเดือน: <b>20,288 คน</b></div>
+      <div class="sc-stat">ค่าเฉลี่ยต่อวัน: <b>665 คน</b></div>
+      <div class="sc-stat">Load Factor: <b>33.51 คน/รอบ</b></div>
+      <div class="sc-stat">รอบต่อวัน: <b>19.85</b></div>
+    </article>
+  </section>
+
+  <div class="sec fade-up delay-3">4. Pearson Correlation &amp; Linear Regression</div>
+  <section class="corr-grid fade-up delay-3">
+    <article class="corr-card">
+      <div class="corr-title">Pearson Correlation — ความสัมพันธ์กับจำนวนผู้โดยสาร</div>
+      <div class="corr-row">
+        <span class="corr-var">วันธรรมดา/เดือน</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="corr-bar-wrap"><div class="corr-bar" style="width:28%;background:#2176C7;"></div></div>
+          <span class="corr-val" style="color:#2176C7;">r = +0.282</span>
+          <span class="corr-sig sig-n">p=0.096</span>
+        </div>
+      </div>
+      <div class="corr-row">
+        <span class="corr-var">รอบเรือ/เดือน</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="corr-bar-wrap"><div class="corr-bar" style="width:21%;background:#9B85C4;"></div></div>
+          <span class="corr-val" style="color:#9B85C4;">r = +0.212</span>
+          <span class="corr-sig sig-n">p=0.214</span>
+        </div>
+      </div>
+      <div class="corr-row">
+        <span class="corr-var">จำนวนวันทั้งหมด</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="corr-bar-wrap"><div class="corr-bar" style="width:14%;background:#9ca3af;"></div></div>
+          <span class="corr-val" style="color:#9ca3af;">r = +0.139</span>
+          <span class="corr-sig sig-n">p=0.418</span>
+        </div>
+      </div>
+      <div class="corr-row">
+        <span class="corr-var">วันหยุด/เดือน</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="corr-bar-wrap"><div class="corr-bar" style="width:9%;background:#E85C3A;"></div></div>
+          <span class="corr-val" style="color:#E85C3A;">r = -0.090</span>
+          <span class="corr-sig sig-n">p=0.602</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:10px 12px;background:#f7f8f7;border-radius:12px;font-size:12px;color:#5f6773;line-height:1.7;">ทุกตัวแปรมีค่า <b>p &gt; 0.05</b> จึงยังไม่พบความสัมพันธ์เชิงสถิติที่มีนัยสำคัญกับจำนวนผู้โดยสารโดยตรง</div>
+    </article>
+    <article class="reg-card">
+      <div class="corr-title">Linear Regression — แนวโน้มระยะยาว</div>
+      <div class="chart-frame medium" style="margin-bottom:14px;">
+        <canvas id="trendChart" role="img" aria-label="กราฟ Linear Regression แนวโน้มผู้โดยสาร">ข้อมูล Linear Trend</canvas>
+      </div>
+      <div class="reg-row">
+        <div class="reg-item">
+          <div class="reg-lbl">Slope</div>
+          <div class="reg-v" style="color:#1A7A5E;">+256 คน/เดือน</div>
+          <div class="reg-sub">แนวโน้มเพิ่มขึ้นต่อเนื่อง</div>
+        </div>
+        <div class="reg-item">
+          <div class="reg-lbl">R² (Explained)</div>
+          <div class="reg-v" style="color:#2176C7;">0.262</div>
+          <div class="reg-sub">อธิบายความแปรปรวนได้ 26.2%</div>
+        </div>
+        <div class="reg-item">
+          <div class="reg-lbl">p-value</div>
+          <div class="reg-v" style="color:#1A7A5E;">0.0014</div>
+          <div class="reg-sub" style="color:#1A7A5E;">มีนัยสำคัญที่ระดับ α = 0.05</div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <div class="divider"></div>
+  <div class="sec fade-up delay-3" style="margin-top:0;">5. สรุปข้อค้นพบจากการวิเคราะห์</div>
+  <section class="ins3 fade-up delay-3">
+    <article class="ins i1">
+      <div class="ins-n">01</div>
+      <div class="ins-h">แนวโน้มระยะยาวยังเป็นบวกอย่างมีนัยสำคัญ</div>
+      <div class="ins-b">Regression ชี้ว่าผู้โดยสารเพิ่มขึ้นเฉลี่ย +256 คนต่อเดือน แม้บางช่วงของปี 2568 จะอ่อนตัวลงเมื่อเทียบกับปี 2567</div>
+    </article>
+    <article class="ins i2">
+      <div class="ins-n">02</div>
+      <div class="ins-h">ช่วงปิดเทอม 2 ให้ประสิทธิภาพการใช้งานสูงสุด</div>
+      <div class="ins-b">ค่าเฉลี่ย 20,288 คนต่อเดือน และ Load Factor 33.51 คนต่อรอบ สะท้อนการใช้งานจากกลุ่มเดินทางประจำค่อนข้างชัด</div>
+    </article>
+    <article class="ins i3">
+      <div class="ins-n">03</div>
+      <div class="ins-h">ควรเร่งมาตรการช่วง พ.ค.–ก.ค. เป็นพิเศษ</div>
+      <div class="ins-b">ช่วงดังกล่าวเป็นจุดที่ YoY ลดลงแรงที่สุดเมื่อเทียบปีก่อน จึงเหมาะกับการออกแบบกิจกรรมหรือการสื่อสารเพื่อกระตุ้นการใช้งาน</div>
+    </article>
+  </section>
+
+  <div class="footer fade-up delay-3">วิเคราะห์โดย: กลุ่มงานสถิติและวิจัย กองนโยบายและแผนงาน สำนักการจราจรและขนส่ง · จัดรูปแบบหน้าแสดงผลใหม่เพื่อใช้งานเป็นรายงานสรุป</div>
+</div>
+
+<script>
+const palette = {
+  grid: 'rgba(15, 23, 42, 0.08)',
+  text: '#6b7280',
+  blue: '#2176C7',
+  purple: '#9B85C4',
+  green: '#1A7A5E',
+  red: '#E85C3A'
+};
+
+const chartFont = { size: 10, family: "'Sarabun', sans-serif" };
+const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
+Chart.defaults.font.family = "'Sarabun', sans-serif";
+Chart.defaults.color = palette.text;
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+
+const p67 = [24657, 24448, 22304, 17373, 19802, 19161, 18007, 17909, 18287, 13634, 16296, 16357];
+const p68 = [20330, 19855, 20737, 20737, 14461, 14494, 13618, 13949, 15038, 13830, 16214, 17968];
+const yoy = p68.map((value, index) => +((value - p67[index]) / p67[index] * 100).toFixed(1));
+
+const load67 = [38.23, 40.95, 35.80, 29.00, 31.23, 31.99, 28.40, 28.25, 28.94, 21.88, 26.24, 26.73];
+const load68 = [31.52, 34.00, 33.29, 35.94, 23.21, 24.20, 21.86, 22.79, 23.79, 22.20, 26.58, 28.84];
+
+new Chart(document.getElementById('yoyBar'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      { label: '2567', data: p67, backgroundColor: palette.blue, borderRadius: 6, borderSkipped: false },
+      { label: '2568', data: p68, backgroundColor: palette.purple, borderRadius: 6, borderSkipped: false }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: context => ' ' + context.dataset.label + ': ' + context.parsed.y.toLocaleString() + ' คน' } }
+    },
+    scales: {
+      x: { ticks: { font: chartFont, color: palette.text }, grid: { display: false } },
+      y: { ticks: { font: chartFont, color: palette.text, callback: value => (value / 1000).toFixed(0) + 'K' }, grid: { color: palette.grid } }
+    }
+  }
+});
+
+new Chart(document.getElementById('yoyPct'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      label: '% YoY',
+      data: yoy,
+      backgroundColor: yoy.map(value => value >= 0 ? 'rgba(26,122,94,0.88)' : 'rgba(232,92,58,0.88)'),
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: context => ' ' + (context.parsed.y >= 0 ? '+' : '') + context.parsed.y.toFixed(1) + '%' } }
+    },
+    scales: {
+      x: { ticks: { font: chartFont, color: palette.text }, grid: { display: false } },
+      y: {
+        ticks: { font: chartFont, color: palette.text, callback: value => value + '%' },
+        grid: { color: palette.grid },
+        title: { display: true, text: '% เปลี่ยนแปลง YoY', font: chartFont, color: palette.text }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('loadYoY'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Load 2567',
+        data: load67,
+        borderColor: palette.blue,
+        backgroundColor: 'rgba(33,118,199,0.08)',
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointHoverRadius: 4,
+        fill: true,
+        tension: 0.35
+      },
+      {
+        label: 'Load 2568',
+        data: load68,
+        borderColor: palette.red,
+        backgroundColor: 'rgba(232,92,58,0.08)',
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointHoverRadius: 4,
+        fill: true,
+        tension: 0.35,
+        borderDash: [6, 4]
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: context => ' ' + context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' คน/รอบ' } }
+    },
+    scales: {
+      x: { ticks: { font: chartFont, color: palette.text }, grid: { display: false } },
+      y: {
+        ticks: { font: chartFont, color: palette.text, callback: value => value + ' คน' },
+        grid: { color: palette.grid },
+        suggestedMin: 15,
+        suggestedMax: 45,
+        title: { display: true, text: 'คน/รอบ', font: chartFont, color: palette.text }
+      }
+    }
+  }
+});
+
+const allPassengers = [8542, 5984, 6979, 9362, 6614, 11497, 6411, 6627, 11979, 11748, 24657, 24448, 22304, 17373, 19802, 19161, 18007, 17909, 18287, 13634, 16296, 16357, 20330, 19855, 20737, 20737, 14461, 14494, 13618, 13949, 15038, 13830, 16214, 17968, 19626, 21720];
+const totalPoints = allPassengers.length;
+const xMean = (totalPoints - 1) / 2;
+const yMean = allPassengers.reduce((sum, value) => sum + value, 0) / totalPoints;
+let sumXY = 0;
+let sumXX = 0;
+
+allPassengers.forEach((value, index) => {
+  sumXY += (index - xMean) * (value - yMean);
+  sumXX += (index - xMean) ** 2;
+});
+
+const slope = sumXY / sumXX;
+const intercept = yMean - slope * xMean;
+const trendLine = allPassengers.map((_, index) => Math.round(slope * index + intercept));
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'scatter',
+  data: {
+    datasets: [
+      {
+        label: 'ผู้โดยสาร',
+        data: allPassengers.map((value, index) => ({ x: index, y: value })),
+        backgroundColor: 'rgba(33,118,199,0.38)',
+        pointRadius: 3,
+        pointHoverRadius: 4,
+        showLine: false
+      },
+      {
+        label: 'Trend Line',
+        data: trendLine.map((value, index) => ({ x: index, y: value })),
+        borderColor: palette.red,
+        borderWidth: 2,
+        pointRadius: 0,
+        showLine: true,
+        type: 'line',
+        tension: 0
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: context => context.dataset.label + ': ' + context.parsed.y.toLocaleString() + ' คน' } }
+    },
+    scales: {
+      x: { ticks: { font: { size: 9, family: "'Sarabun', sans-serif" }, color: palette.text, callback: value => 'เดือน ' + (value + 1) }, grid: { display: false } },
+      y: { ticks: { font: { size: 9, family: "'Sarabun', sans-serif" }, color: palette.text, callback: value => (value / 1000).toFixed(0) + 'K' }, grid: { color: palette.grid } }
+    }
+  }
+});
+</script>
+</body>
+</html>

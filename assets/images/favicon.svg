@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Boat Report Icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f5b46"/>
+      <stop offset="100%" stop-color="#2fb09f"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <path d="M14 38h36l-4 8a8 8 0 0 1-7 4H25a8 8 0 0 1-7-4l-4-8z" fill="#ffffff"/>
+  <path d="M29 16h6v18h-6z" fill="#dff6ef"/>
+  <path d="M35 19l10 8H35z" fill="#ffffff"/>
+  <path d="M18 52c3 2 6 2 9 0 3 2 6 2 9 0 3 2 6 2 9 0" fill="none" stroke="#bcebdd" stroke-width="2" stroke-linecap="round"/>
+</svg>
